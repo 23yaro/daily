@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../ui/consts/icons.dart';
 
 class HomeAppBar extends StatefulWidget {
@@ -14,12 +15,12 @@ class _HomeAppBarState extends State<HomeAppBar> {
   bool _visibility = false;
 
   void _changeVisibility() {
-    if (widget.scrollController.offset < 75) {
-      if (_visibility) {
-        setState(() => _visibility = false);
-      }
-    } else {
+    ///Изменение иконки
+    if (widget.scrollController.offset > 70.0 && !_visibility) {
       setState(() => _visibility = true);
+    }
+    if (widget.scrollController.offset < 70.0 && _visibility) {
+      setState(() => _visibility = false);
     }
   }
 
@@ -32,19 +33,22 @@ class _HomeAppBarState extends State<HomeAppBar> {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar.medium(
-      title: Padding(
-        padding: const EdgeInsets.only(left: 53.0, right: 10.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text('Мои дела'),
-            Visibility(
-              visible: _visibility,
-              child: IconsApp.visibility,
-            ),
-          ],
+      flexibleSpace: FlexibleSpaceBar(
+        titlePadding: const EdgeInsets.only(left: 69.0, bottom: 15.0),
+        title: Text(
+          'Мои дела',
+          style: Theme.of(context).textTheme.headlineSmall,
         ),
       ),
+      actions: [
+        Padding(
+          padding: const EdgeInsets.only(right: 26.0),
+          child: Visibility(
+            visible: _visibility,
+            child: IconsApp.visibility,
+          ),
+        ),
+      ],
     );
   }
 }

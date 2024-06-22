@@ -35,6 +35,10 @@ final ThemeData lightTheme = ThemeData(
     foregroundColor: ColorsLight.white,
     shape: CircleBorder(),
   ),
+  checkboxTheme: const CheckboxThemeData(
+      side: BorderSide(color: ColorsLight.gray, width: 2.0)),
+  textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(foregroundColor: ColorsLight.blue)),
   hintColor: ColorsLight.labelTertiary,
   fontFamily: "Roboto",
   textTheme: _textTheme(),

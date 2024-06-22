@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../../../ui/consts/colors.dart';
 import '../../../ui/consts/icons.dart';
 
@@ -9,15 +10,19 @@ class DismissibleWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void onDismissed(direction){
+    void onDismissed(direction) {
       //if(direction == DismissDirection.startToEnd)
       //if(direction == DismissDirection.endToStart)
     }
+    Future<bool> confirmDismiss(dis) async => false;
+
     return ClipRRect(
       borderRadius: BorderRadius.circular(5.0),
       child: Dismissible(
+        confirmDismiss: confirmDismiss,
         onDismissed: onDismissed,
         key: UniqueKey(),
+        //переделать
         background: Container(
           alignment: Alignment.centerLeft,
           color: ColorsLight.green,

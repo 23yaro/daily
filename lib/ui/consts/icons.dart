@@ -6,7 +6,7 @@ abstract class IconsApp {
     Icons.check,
     color: ColorsLight.white,
   );
-  static const arrowDown = Icon(
+  static const priorityLow = Icon(
     Icons.arrow_drop_down_outlined,
     color: ColorsLight.labelTertiary,
   );
@@ -23,7 +23,7 @@ abstract class IconsApp {
     color: ColorsLight.blue,
   );
   static const add = Icon(
-    Icons.add ,
+    Icons.add,
     color: ColorsLight.white,
   );
   static const delete = Icon(

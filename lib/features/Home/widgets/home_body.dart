@@ -1,4 +1,3 @@
-import 'package:daily/data_mock/list.dart';
 import 'package:daily/features/Home/widgets/home_appbar.dart';
 import 'package:daily/features/Home/widgets/home_header.dart';
 import 'package:daily/features/Home/widgets/home_list.dart';
@@ -20,16 +19,11 @@ class _HomeBodyState extends State<HomeBody> {
     super.dispose();
   }
 
-  int stub = items.fold(
-      0,
-      (previousValue, element) =>
-          element.isComplete ? previousValue += 1 : previousValue);
-
   @override
   Widget build(BuildContext context) {
     final slivers = <Widget>[
       HomeAppBar(scrollController: _scrollController),
-      HomeHeader(value: stub), //Переделать
+      const HomeHeader(),
       const HomeList(),
     ];
 

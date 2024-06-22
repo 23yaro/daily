@@ -1,6 +1,8 @@
 import 'package:daily/ui/theme/theme.dart';
 import 'package:flutter/material.dart';
+
 import 'features/Home/home_screen.dart';
+import 'features/Task/task_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,10 +17,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Daily',
       theme: lightTheme,
-      home: const HomeScreen(),
+      initialRoute: '/task_screen',
+      routes: {
+        '/': (context) => const HomeScreen(),
+        '/task_screen': (context) => const TaskScreen(),
+      },
     );
   }
 }
-
-
-

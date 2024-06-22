@@ -1,10 +1,10 @@
 import 'package:daily/ui/consts/icons.dart';
 import 'package:flutter/material.dart';
 
-class HomeHeader extends StatelessWidget {
-  const HomeHeader({super.key, required this.value});
+import '../../../data_mock/list.dart';
 
-  final int value;
+class HomeHeader extends StatelessWidget {
+  const HomeHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class HomeHeader extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Выполнено — $value'),
+            Text('Выполнено — $stub'),
             IconsApp.visibility,
           ],
         ),

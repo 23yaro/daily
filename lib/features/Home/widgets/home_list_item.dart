@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:daily/data_mock/list.dart';
-import '../../../ui/consts/colors.dart';
+import 'package:flutter/material.dart';
+
+import '../../../ui/check_boxes/check_box.dart';
 import '../../../ui/consts/icons.dart';
 import 'home_dismissible_wrapper.dart';
 
@@ -17,60 +18,51 @@ class HomeListItem extends StatefulWidget {
 }
 
 class _HomeListItemState extends State<HomeListItem> {
+  void onChanged(bool? bool) => setState(
+      () => items[widget.index].isComplete = !items[widget.index].isComplete);
+  static const Widget trailing = SizedBox(width: 16.0, child: IconsApp.info);
+
   @override
   Widget build(BuildContext context) {
     final isComplete = items[widget.index].isComplete;
     final priority = items[widget.index].priority;
+    final titleTextStyle = TextStyle(
+      decoration: TextDecoration.lineThrough,
+      color: Theme.of(context).hintColor,
+    );
+    final subTitleTextStyle =
+        Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 14.0);
 
     ///checkBox
-    Widget checkBox = SizedBox(
-      width: 22.0,
-      child: Checkbox(
-        activeColor: ColorsLight.green,
-        value: isComplete,
-        side: priority == 2 && !isComplete
-            ? const BorderSide(color: ColorsLight.red, width: 2.0)
-            : const BorderSide(color: ColorsLight.gray, width: 2.0),
-        fillColor: priority == 2 && !isComplete
-            ? MaterialStatePropertyAll(ColorsLight.red.withOpacity(0.3))
-            : null,
-        onChanged: (bool? bool) {
-          setState(() => items[widget.index].isComplete = !isComplete);
-        },
-      ),
-    );
+    Widget? checkBox;
+    switch (priority) {
+      case 2:
+        checkBox = CheckBoxes.priorityHigh(isComplete, onChanged);
+      default:
+        checkBox = CheckBoxes.priorityDef(isComplete, onChanged);
+    }
 
-    ///Дополнительная иконка, если приоритет выше 0
+    ///Дополнительная иконка приоритета
+    Widget? additionalIcon;
+    if (!isComplete) {
+      switch (priority) {
+        case 1:
+          additionalIcon = IconsApp.priorityLow;
+        case 2:
+          additionalIcon = IconsApp.priorityHigh;
+      }
+    }
+
+    ///leading
     ///
-    ///где же вы мои if'ы из котлина ;(
-    Widget? additionalIcon = (!isComplete && priority != 0)
-        ? priority == 1
-            ? IconsApp.arrowDown
-            : priority == 2
-                ? IconsApp.priorityHigh
-                : null
-        : null;
-
     ///Check box с иконкой приоритета
-    ///
-    ///Если есть дополнительная иконка капсулируем ее в Row
-    Widget checkBoxWithAdditionalIcon = additionalIcon != null
-        ? Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              checkBox,
-              SizedBox(
-                  width: (priority > 0 && !isComplete) ? 6.0 : 0.0,
-                  child: additionalIcon),
-            ],
-          )
-        : Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              checkBox,
-              SizedBox(width: (priority > 0 && !isComplete) ? 0.0 : 6.0),
-            ],
-          );
+    Widget checkBoxWithAdditionalIcon = Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SizedBox(width: 22.0, child: checkBox),
+        SizedBox(width: 6.0, child: additionalIcon),
+      ],
+    );
 
     ///title
     Widget title = Text(
@@ -78,23 +70,16 @@ class _HomeListItemState extends State<HomeListItem> {
       maxLines: 2,
       textAlign: TextAlign.justify,
       overflow: TextOverflow.ellipsis,
-      style: isComplete
-          ? TextStyle(
-              decoration: TextDecoration.lineThrough,
-              color: Theme.of(context).hintColor,
-            )
-          : null,
+      style: isComplete ? titleTextStyle : null,
     );
 
     ///subtitle
     Widget? subtitle = (items[widget.index].date != null)
         ? Text(
             items[widget.index].date.toString(),
-            style:
-                Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 14.0),
+            style: subTitleTextStyle,
           )
         : null;
-    const Widget trailing = SizedBox(width: 16.0, child: IconsApp.info);
 
     return DismissibleWrapper(
       child: ListTile(
