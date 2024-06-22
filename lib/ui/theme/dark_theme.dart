@@ -1,6 +1,6 @@
 part of 'theme.dart';
 
-  final ThemeData darkTheme = ThemeData(
+final ThemeData darkTheme = ThemeData(
   colorScheme: const ColorScheme.dark(
     primary: ColorsDark.labelPrimary,
     secondary: ColorsDark.labelSecondary,
@@ -14,7 +14,7 @@ part of 'theme.dart';
   dividerColor: ColorsDark.separator,
   switchTheme: SwitchThemeData(
     overlayColor: MaterialStateProperty.resolveWith(
-          (Set<MaterialState> states) {
+      (Set<MaterialState> states) {
         if (states.contains(MaterialState.disabled)) {
           return ColorsDark.overlay;
         }
