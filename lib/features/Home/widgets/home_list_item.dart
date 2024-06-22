@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../ui/check_boxes/check_box.dart';
 import '../../../ui/consts/icons.dart';
 import 'home_dismissible_wrapper.dart';
+import 'home_item_info_button.dart';
 
 class HomeListItem extends StatefulWidget {
   const HomeListItem({
@@ -20,16 +21,18 @@ class HomeListItem extends StatefulWidget {
 class _HomeListItemState extends State<HomeListItem> {
   void onChanged(bool? bool) => setState(
       () => items[widget.index].isComplete = !items[widget.index].isComplete);
-  static const Widget trailing = SizedBox(width: 16.0, child: IconsApp.info);
 
   @override
   Widget build(BuildContext context) {
     final isComplete = items[widget.index].isComplete;
+
     final priority = items[widget.index].priority;
+
     final titleTextStyle = TextStyle(
       decoration: TextDecoration.lineThrough,
       color: Theme.of(context).hintColor,
     );
+
     final subTitleTextStyle =
         Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 14.0);
 
@@ -82,11 +85,12 @@ class _HomeListItemState extends State<HomeListItem> {
         : null;
 
     return DismissibleWrapper(
+      id: widget.index,
       child: ListTile(
         leading: checkBoxWithAdditionalIcon,
         title: title,
         subtitle: subtitle,
-        trailing: trailing,
+        trailing: HomeItemInfoButton(id: widget.index),
       ),
     );
   }

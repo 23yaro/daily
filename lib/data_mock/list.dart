@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
+
 class Item {
   Item({
     required this.id,
@@ -33,6 +35,9 @@ final List<Item> items = List.generate(
               : null,
         ));
 
+final List<Item> completeItems =
+    items.where((element) => element.isComplete).toList();
+
 final List<String> names = [
   'Сходить в универ',
   'Полистать ленту',
@@ -42,3 +47,5 @@ final List<String> names = [
   'Посмотреть фильм',
   'Вынести мусор',
 ];
+
+class Stub extends ChangeNotifier {}

@@ -26,9 +26,17 @@ abstract class IconsApp {
     Icons.add,
     color: ColorsLight.white,
   );
-  static const delete = Icon(
+  static const deleteDef = Icon(
     Icons.delete,
     color: ColorsLight.white,
+  );
+  static const delete = Icon(
+    Icons.delete,
+    color: ColorsLight.red,
+  );
+  static const deleteDisabled = Icon(
+    Icons.delete,
+    color: ColorsLight.labelDisable,
   );
   static const info = Icon(
     Icons.info_outline,

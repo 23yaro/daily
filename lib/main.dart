@@ -1,5 +1,6 @@
 import 'package:daily/ui/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'features/Home/home_screen.dart';
 import 'features/Task/task_screen.dart';
@@ -17,7 +18,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Daily',
       theme: lightTheme,
-      initialRoute: '/task_screen',
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+      ],
+      initialRoute: '/',
       routes: {
         '/': (context) => const HomeScreen(),
         '/task_screen': (context) => const TaskScreen(),

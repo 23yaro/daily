@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
+
 import '../../../data_mock/list.dart';
 import 'home_list_item.dart';
 import 'home_list_wrapper.dart';
+import 'home_new_task_button.dart';
 
-class HomeList extends StatelessWidget {
+class HomeList extends StatefulWidget {
   const HomeList({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final newTask = Padding(
-      padding: const EdgeInsets.only(left: 60.0, bottom: 20.0, top: 5.0),
-      child: Text('Новое', style: Theme.of(context).textTheme.bodySmall),
-    );
+  State<HomeList> createState() => _HomeListState();
+}
 
+class _HomeListState extends State<HomeList> {
+  @override
+  Widget build(BuildContext context) {
     final listItems = SliverList(
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int index) => (index != items.length)
             ? HomeListItem(index: items[index].id)
-            : newTask,
+            : const HomeNewTaskButton(),
         childCount: items.length + 1,
       ),
     );

@@ -4,9 +4,10 @@ import '../../../ui/consts/colors.dart';
 import '../../../ui/consts/icons.dart';
 
 class DismissibleWrapper extends StatelessWidget {
-  const DismissibleWrapper({super.key, required this.child});
+  const DismissibleWrapper({super.key, required this.child, required this.id});
 
   final Widget child;
+  final int id;
 
   @override
   Widget build(BuildContext context) {
@@ -14,15 +15,15 @@ class DismissibleWrapper extends StatelessWidget {
       //if(direction == DismissDirection.startToEnd)
       //if(direction == DismissDirection.endToStart)
     }
+
     Future<bool> confirmDismiss(dis) async => false;
 
     return ClipRRect(
-      borderRadius: BorderRadius.circular(5.0),
+      borderRadius: BorderRadius.circular(10.0),
       child: Dismissible(
         confirmDismiss: confirmDismiss,
         onDismissed: onDismissed,
-        key: UniqueKey(),
-        //переделать
+        key: ValueKey(id),
         background: Container(
           alignment: Alignment.centerLeft,
           color: ColorsLight.green,
@@ -36,7 +37,7 @@ class DismissibleWrapper extends StatelessWidget {
           color: ColorsLight.red,
           child: const Padding(
             padding: EdgeInsets.only(right: 24.0),
-            child: IconsApp.delete,
+            child: IconsApp.deleteDef,
           ),
         ),
         child: child,

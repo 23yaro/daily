@@ -13,18 +13,6 @@ final ThemeData lightTheme = ThemeData(
     backgroundColor: ColorsLight.backPrimary,
     shadowColor: ColorsLight.gray,
   ),
-  disabledColor: ColorsLight.labelDisable,
-  dividerColor: ColorsLight.separator,
-  switchTheme: SwitchThemeData(
-    overlayColor: MaterialStateProperty.resolveWith(
-      (Set<MaterialState> states) {
-        if (states.contains(MaterialState.disabled)) {
-          return ColorsLight.overlay;
-        }
-        return Colors.white.withOpacity(.1);
-      },
-    ),
-  ),
   dropdownMenuTheme: const DropdownMenuThemeData(
     menuStyle: MenuStyle(
       backgroundColor: MaterialStatePropertyAll(ColorsLight.backElevated),
@@ -35,11 +23,21 @@ final ThemeData lightTheme = ThemeData(
     foregroundColor: ColorsLight.white,
     shape: CircleBorder(),
   ),
+  switchTheme: SwitchThemeData(
+    trackColor: MaterialStatePropertyAll(ColorsLight.blue.withOpacity(0.3)),
+    trackOutlineColor:
+        MaterialStatePropertyAll(ColorsLight.blue.withOpacity(0.01)),
+    thumbColor: const MaterialStatePropertyAll(ColorsLight.blue),
+  ),
   checkboxTheme: const CheckboxThemeData(
       side: BorderSide(color: ColorsLight.gray, width: 2.0)),
   textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(foregroundColor: ColorsLight.blue)),
-  hintColor: ColorsLight.labelTertiary,
+  textSelectionTheme: const TextSelectionThemeData(
+    cursorColor: ColorsLight.blue,
+    selectionColor: ColorsLight.blue,
+    selectionHandleColor: ColorsLight.blue,
+  ),
   fontFamily: "Roboto",
   textTheme: _textTheme(),
 );

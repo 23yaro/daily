@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../ui/consts/icons.dart';
+import 'home_visibility_button.dart';
 
 class HomeAppBar extends StatefulWidget {
   const HomeAppBar({super.key, required this.scrollController});
@@ -16,10 +16,10 @@ class _HomeAppBarState extends State<HomeAppBar> {
 
   void _changeVisibility() {
     ///Изменение иконки
-    if (widget.scrollController.offset > 70.0 && !_visibility) {
+    if (widget.scrollController.offset > 80.0 && !_visibility) {
       setState(() => _visibility = true);
     }
-    if (widget.scrollController.offset < 70.0 && _visibility) {
+    if (widget.scrollController.offset < 80.0 && _visibility) {
       setState(() => _visibility = false);
     }
   }
@@ -42,10 +42,11 @@ class _HomeAppBarState extends State<HomeAppBar> {
       ),
       actions: [
         Padding(
-          padding: const EdgeInsets.only(right: 26.0),
+          padding: const EdgeInsets.only(right: 20.0),
           child: Visibility(
+            maintainState: true,
             visible: _visibility,
-            child: IconsApp.visibility,
+            child: const HomeVisibilityButton(), //переделать как будет модель
           ),
         ),
       ],
