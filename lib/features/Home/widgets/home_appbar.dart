@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 
 import 'home_visibility_button.dart';
 
@@ -12,15 +13,22 @@ class HomeAppBar extends StatefulWidget {
 }
 
 class _HomeAppBarState extends State<HomeAppBar> {
+  var logger = Logger();
   bool _visibility = false;
 
   void _changeVisibility() {
     ///Изменение иконки
     if (widget.scrollController.offset > 80.0 && !_visibility) {
-      setState(() => _visibility = true);
+      setState(() {
+        _visibility = true;
+        logger.d('setState - vis:true');
+      });
     }
     if (widget.scrollController.offset < 80.0 && _visibility) {
-      setState(() => _visibility = false);
+      setState(() {
+        _visibility = false;
+        logger.d('setState - vis:false');
+      });
     }
   }
 

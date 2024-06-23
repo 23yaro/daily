@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 
 import '../../../ui/consts/colors.dart';
 import '../../../ui/consts/icons.dart';
@@ -11,12 +12,13 @@ class DismissibleWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void onDismissed(direction) {
-      //if(direction == DismissDirection.startToEnd)
-      //if(direction == DismissDirection.endToStart)
+    var logger = Logger();
+    void onDismissed(DismissDirection direction) {
+      if (direction == DismissDirection.startToEnd) logger.d("complete task");
+      if (direction == DismissDirection.endToStart) logger.d("delete task");
     }
 
-    Future<bool> confirmDismiss(dis) async => false;
+    Future<bool> confirmDismiss(dis) async => true;
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(10.0),
