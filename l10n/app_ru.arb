@@ -1,0 +1,42 @@
+{
+  "homeAppBarTitle": "Мои задачи",
+  "@homeAppBarTitle": {
+    "description": "Home AppBar title"
+  },
+  "homeAppBarSubTitle": "Выполнено:",
+  "@homeAppBarSubTitle": {
+    "description": "How many tasks completed"
+  },
+  "taskAppBarSave": "СОХРАНИТЬ",
+  "@taskAppBarSave": {
+    "description": "Task button save changes"
+  },
+  "homeNew": "новое",
+  "@HomeNew": {
+    "description": "Home new task"
+  },
+  "taskPriority": "Приоритет",
+  "@taskPriority": {
+    "description": "Task priority"
+  },
+  "taskPriorityDefault": "Нет",
+  "@taskPriorityDefault": {
+    "description": "Task priority none"
+  },
+  "taskPriorityHigh": "!! Высокий",
+  "@taskPriorityHigh": {
+    "description": "Task priority high"
+  },
+  "taskPriorityLow": "Низкий",
+  "@taskPriorityLow": {
+    "description": "Task priority low"
+  },
+  "taskDeadline": "Сделать до",
+  "@taskDeadline": {
+    "description": "Task deadline"
+  },
+  "taskDelete": "Удалить",
+  "@taskDelete": {
+    "description": "Task button delete"
+  }
+}
