@@ -1,23 +1,22 @@
 # daily
-daily todo flutter App
+daily — это Flutter приложение TODO-лист
 
-About
-The Todo-App is a task managing flutter-Application to help its users to stay organized.
-The Todo app can be used for a variety of purposes, such as creating a daily routine or taking notes.
+[Скачать APK](https://github.com/23yaro/daily/releases/download/Latest/app-release.apk)
 
-## Features
+## Фичи
+- Реализована работа со стейтом (provider).
+- Реализована работа с бекэндом (dio, retrofit).
+- Реализована работа с локальным хранилищем (SQFLite).
+- Реализована интернационализация (I10n).
 
-Tasks screen
+Главная на русском
 
-![Image alt](https://github.com/23yaro/daily/raw/first_work/pic/screen.jpg)
+![Image alt](https://github.com/23yaro/daily/raw/second_work_alan_turing/pic/main_ru.jpg)
 
-Add task screen
+Главная на английском
 
-![Image alt](https://github.com/23yaro/daily/raw/first_work/pic/add.jpg)
+![Image alt](https://github.com/23yaro/daily/raw/second_work_alan_turing/pic/main_en.jpg)
 
-## Downloads
+Экран редактирования на английском
 
--apk
-
-https://drive.google.com/file/d/1qdFNSUmamaboCPqt7yT24wohUVwZ1_BM/view?usp=sharing
-
+![Image alt](https://github.com/23yaro/daily/raw/second_work_alan_turing/pic/edit_en.jpg)

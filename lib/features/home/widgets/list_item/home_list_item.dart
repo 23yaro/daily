@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../ui/consts/icons.dart';
+import '../../../../utils/formatters/formatters.dart';
 import 'home_list_item_check_box.dart';
 import 'home_list_item_dismissible_wrapper.dart';
 import 'home_list_item_info_button.dart';
@@ -67,7 +68,7 @@ class HomeListItem extends StatelessWidget {
     Widget? subtitle;
     if (task.deadline != null) {
       subtitle = Text(
-        task.deadline!,
+        Formatters.convertDateTimeToString(task.deadline!),
         style: subTitleTextStyle,
       );
     }

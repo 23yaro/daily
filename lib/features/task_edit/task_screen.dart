@@ -9,6 +9,8 @@ import '../home/provider_notifiers/task_list_notifier.dart';
 class TaskScreen extends StatelessWidget {
   const TaskScreen({super.key});
 
+  static String routeName() => '/task_screen';
+
   @override
   Widget build(BuildContext context) {
     late final Task task;

@@ -1,5 +1,8 @@
 import 'package:uuid/uuid.dart';
 
+import '../../data/dto/task_dto.dart';
+import '../../utils/formatters/formatters.dart';
+
 class Task {
   Task({
     String? id,
@@ -7,13 +10,19 @@ class Task {
     this.importance = Importance.none,
     this.done = false,
     this.deadline,
-  }) : id = id ?? const Uuid().v1();
+    DateTime? createdAt,
+    DateTime? changedAt,
+  })  : id = id ?? const Uuid().v1(),
+        createdAt = createdAt ?? DateTime.now(),
+        changedAt = changedAt ?? DateTime.now();
 
   final String id;
   String text;
   Importance importance;
   bool done;
-  String? deadline;
+  DateTime? deadline;
+  DateTime createdAt;
+  DateTime changedAt;
 
   bool get hasDeadline => deadline != null;
 
@@ -27,7 +36,9 @@ class Task {
       other.text == text &&
       other.importance == importance &&
       other.done == done &&
-      other.deadline == deadline;
+      other.deadline == deadline &&
+      other.createdAt == createdAt &&
+      other.changedAt == changedAt;
 
   @override
   int get hashCode => id.hashCode;
@@ -37,7 +48,7 @@ class Task {
     String? text,
     Importance? importance,
     bool? done,
-    String? deadline,
+    DateTime? deadline,
   }) {
     return Task(
         id: id ?? this.id,
@@ -49,3 +60,27 @@ class Task {
 }
 
 enum Importance { none, low, high }
+
+extension Mapper on Task {
+  TaskDto toTaskDto() {
+    return TaskDto(
+        id: id,
+        text: text,
+        importance: switch (importance) {
+          Importance.none => "basic",
+          Importance.low => "low",
+          Importance.high => "important",
+        },
+        deadline: hasDeadline
+            ? Duration(milliseconds: deadline!.millisecondsSinceEpoch).inSeconds
+            : null,
+        done: done,
+        createdAt: Duration(
+          milliseconds: createdAt.millisecondsSinceEpoch,
+        ).inSeconds,
+        changedAt: Duration(
+          milliseconds: changedAt.millisecondsSinceEpoch,
+        ).inSeconds,
+        lastUpdatedBy: "myDevice");
+  }
+}

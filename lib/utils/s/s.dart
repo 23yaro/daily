@@ -3,9 +3,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 abstract class S {
-  static const locale = Locale('ru');
+  static const String languageCode = 'ru';
 
-  static const supportedLocales = [Locale('en'), Locale('ru')];
+  static const locale = Locale(languageCode);
+
+  static const supportedLocales = [
+    Locale('en'),
+    Locale('ru'),
+  ];
 
   static const localizationDelegates = <LocalizationsDelegate>[
     GlobalWidgetsLocalizations.delegate,

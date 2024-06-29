@@ -38,5 +38,9 @@
   "taskDelete": "Удалить",
   "@taskDelete": {
     "description": "Task button delete"
+  },
+  "taskTextField": "Что надо сделать...",
+  "@taskTextField": {
+    "description": "Task textfield hintText"
   }
 }
