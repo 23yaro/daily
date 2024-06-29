@@ -26,9 +26,9 @@ class TaskNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  String? get deadline => task.deadline;
+  DateTime? get deadline => task.deadline;
 
-  set deadline(String? deadline) {
+  set deadline(DateTime? deadline) {
     task.deadline = deadline;
     notifyListeners();
   }

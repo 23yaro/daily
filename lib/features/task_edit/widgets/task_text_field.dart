@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../utils/s/s.dart';
 import '../provider_notifiers/task_notifier.dart';
 
 class TaskTextField extends StatefulWidget {
@@ -41,8 +42,8 @@ class _TaskTextFieldState extends State<TaskTextField> {
               controller: controller,
               keyboardType: TextInputType.multiline,
               maxLines: null,
-              decoration: const InputDecoration(
-                hintText: 'Что надо сделать...',
+              decoration: InputDecoration(
+                hintText: S.of(context).taskTextField,
                 border: InputBorder.none,
               ),
               onTapOutside: (event) => unFocus(),

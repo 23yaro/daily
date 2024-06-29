@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../ui/consts/colors.dart';
-import '../../../../utils/formatters/date_formatter.dart';
+import '../../../../utils/formatters/formatters.dart';
 import '../../../../utils/s/s.dart';
 import '../../provider_notifiers/task_notifier.dart';
 
@@ -19,7 +19,7 @@ class TaskDateSelector extends StatelessWidget {
         initialDate: DateTime.now(),
         firstDate: DateTime.now(),
         lastDate: DateTime(DateTime.now().year + 5),
-        locale: const Locale("ru", "RU"),
+        locale: S.locale,
         builder: (context, child) => Theme(
             data: Theme.of(context).copyWith(
               colorScheme: ColorScheme.fromSeed(seedColor: ColorsApp.blue),
@@ -27,7 +27,7 @@ class TaskDateSelector extends StatelessWidget {
             child: child!),
       );
       if (date != null) {
-        notifier.deadline = convertDateTimeToString(date);
+        notifier.deadline = date;
       }
     }
 
@@ -52,7 +52,7 @@ class TaskDateSelector extends StatelessWidget {
                     padding: EdgeInsets.zero,
                   ),
                   onPressed: () => selectDate(context),
-                  child: Text(notifier.deadline!),
+                  child: Text(Formatters.convertDateTimeToString(notifier.deadline!)),
                 ),
               ),
             )

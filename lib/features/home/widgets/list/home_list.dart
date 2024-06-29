@@ -17,14 +17,24 @@ class HomeList extends StatelessWidget {
         ? notifier.tasks.where((task) => !task.done).toList()
         : notifier.tasks.toList();
 
-    final listItems = SliverList(
-      delegate: SliverChildBuilderDelegate(
-        (BuildContext context, int index) => (index != tasks.length)
-            ? HomeListItem(id: tasks[index].id)
-            : const HomeNewTaskButton(),
-        childCount: tasks.length + 1,
-      ),
-    );
+    late final Widget listItems;
+
+    if (notifier.isLoading) {
+      listItems = const SliverFillRemaining(
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      );
+    } else {
+      listItems = SliverList(
+        delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) => (index != tasks.length)
+              ? HomeListItem(id: tasks[index].id)
+              : const HomeNewTaskButton(),
+          childCount: tasks.length + 1,
+        ),
+      );
+    }
 
     return ListWrapper(sliver: listItems);
   }

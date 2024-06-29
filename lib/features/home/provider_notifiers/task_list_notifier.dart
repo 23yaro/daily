@@ -11,6 +11,9 @@ class TaskListNotifier extends ChangeNotifier {
 
   List<Task> tasks = [];
 
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+
   bool visibility = true;
 
   void changeVisibility() {
@@ -18,9 +21,22 @@ class TaskListNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  void loadTasks() async {
-    tasks.addAll(await _taskUseCase.getTaskList());
-    logger.i('task loaded');
+  Future<void> loadTasks() async {
+    _isLoading = true;
+    notifyListeners();
+
+    try {
+      tasks = await _taskUseCase.getTaskList();
+    } catch (error, stackTrace) {
+      logger.e(
+        "TaskListNotifier: error load tasks",
+        error: error,
+        stackTrace: stackTrace,
+      );
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
   }
 
   Future<bool> addTask(Task task) async {
@@ -28,9 +44,9 @@ class TaskListNotifier extends ChangeNotifier {
     if (result) {
       tasks.add(task);
       notifyListeners();
-      logger.d('task added and uploaded List length: ${tasks.length}');
+      logger.d('notifier: Task added and uploaded, List length: ${tasks.length}');
     } else {
-      logger.e('add task error');
+      logger.e('notifier: add task error');
     }
     return result;
   }
@@ -38,11 +54,11 @@ class TaskListNotifier extends ChangeNotifier {
   Future<bool> updateTask(Task task) async {
     final result = await _taskUseCase.updateTask(task);
     if (result) {
-      logger.d('task updated');
+      logger.d('notifier: task updated');
       tasks[tasks.indexWhere((e) => e.id == task.id)] = task;
       notifyListeners();
     } else {
-      logger.e('update task error');
+      logger.e('notifier: update task error');
     }
     return result;
   }
@@ -52,9 +68,9 @@ class TaskListNotifier extends ChangeNotifier {
     if (result) {
       tasks.removeWhere((e) => e.id == id);
       notifyListeners();
-      logger.d('Task deleted. List length: ${tasks.length}');
+      logger.d('notifier: Task deleted. List length: ${tasks.length}');
     } else {
-      logger.e('delete task error');
+      logger.e('notifier: delete task error');
     }
     return result;
   }
