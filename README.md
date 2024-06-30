@@ -1,7 +1,7 @@
 # daily
 daily — это Flutter приложение TODO-лист
 
-[Скачать APK](https://github.com/23yaro/daily/releases/download/Latest/app-release.apk)
+[Скачать APK](https://github.com/23yaro/daily/releases/download/latest/app-release.apk)
 
 ## Фичи
 - Реализована работа со стейтом (provider).
