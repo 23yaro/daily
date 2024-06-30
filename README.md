@@ -1,6 +1,8 @@
 # daily
 daily — это Flutter приложение TODO-лист
 
+token зашит через --dart-define=TOKEN="Токен"
+
 [Скачать APK](https://github.com/23yaro/daily/releases/download/Latest/app-release.apk)
 
 ## Фичи
