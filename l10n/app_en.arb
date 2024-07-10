@@ -1,0 +1,46 @@
+{
+  "homeAppBarTitle": "My tasks",
+  "@homeAppBarTitle": {
+    "description": "Home AppBar title"
+  },
+  "homeAppBarSubTitle": "Completed:",
+  "@homeAppBarSubTitle": {
+    "description": "How many tasks completed"
+  },
+  "homeNew": "new",
+  "@HomeNew": {
+    "description": "Home new task"
+  },
+  "taskAppBarSave": "SAVE",
+  "@taskAppBarSave": {
+    "description": "Task button save changes"
+  },
+  "taskPriority": "Priority",
+  "@taskPriority": {
+    "description": "Task priority"
+  },
+  "taskPriorityDefault": "None",
+  "@taskPriorityDefault": {
+    "description": "Task priority none"
+  },
+  "taskPriorityHigh": "!! High",
+  "@taskPriorityHigh": {
+    "description": "Task priority high"
+  },
+  "taskPriorityLow": "Low",
+  "@taskPriorityLow": {
+    "description": "Task priority low"
+  },
+  "taskDeadline": "Deadline",
+  "@taskDeadline": {
+    "description": "Task deadline"
+  },
+  "taskDelete": "Delete",
+  "@taskDelete": {
+    "description": "Task button delete"
+  },
+  "taskTextField": "What need to do...",
+  "@taskTextField": {
+    "description": "Task textfield hintText"
+  }
+}
