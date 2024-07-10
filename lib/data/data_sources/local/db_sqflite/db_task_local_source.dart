@@ -1,17 +1,19 @@
 import 'package:daily/data/data_sources/local/task_local_source.dart';
+
 import '../../../../utils/logger/logger.dart';
 import '../../../dto/task_dto.dart';
 import '../task_data_base.dart';
 
 class TaskDBLocalSource implements TaskLocalSource {
-  TaskDBLocalSource({required TaskDataBase dataBase}) : _dataBase = dataBase;
-
+  TaskDBLocalSource({
+    required TaskDataBase dataBase,
+  }) : _dataBase = dataBase;
   final TaskDataBase _dataBase;
 
   @override
-  Future<void> addTask(TaskDto task) async {
+  Future<void> addTask(TaskDTO task) async {
     try {
-      await _dataBase.insertTask(task);
+      await _dataBase.addTask(task);
       logger.d('TaskLocalSource: add task');
     } catch (error, stackTrace) {
       logger.e(
@@ -24,8 +26,8 @@ class TaskDBLocalSource implements TaskLocalSource {
   }
 
   @override
-  Future<TaskDto> getTask(String id) async {
-    TaskDto task;
+  Future<TaskDTO?> getTask(String id) async {
+    TaskDTO? task;
     try {
       task = await _dataBase.getTask(id);
       logger.d('TaskLocalSource: get task');
@@ -56,10 +58,10 @@ class TaskDBLocalSource implements TaskLocalSource {
   }
 
   @override
-  Future<List<TaskDto>> getTaskList() async {
-    List<TaskDto> tasks;
+  Future<List<TaskDTO>> getTaskList() async {
+    List<TaskDTO> tasks;
     try {
-      tasks = await _dataBase.getAll();
+      tasks = await _dataBase.getTaskList();
       logger.d('TaskLocalSource: get task list');
     } catch (error, stackTrace) {
       logger.e(
@@ -74,7 +76,7 @@ class TaskDBLocalSource implements TaskLocalSource {
   }
 
   @override
-  Future<void> saveTaskList(List<TaskDto> list) async {
+  Future<void> saveTaskList(List<TaskDTO> list) async {
     try {
       await _dataBase.saveTaskList(list);
       logger.d('TaskLocalSource: task saved');
@@ -89,7 +91,7 @@ class TaskDBLocalSource implements TaskLocalSource {
   }
 
   @override
-  Future<void> updateTask(TaskDto task) async {
+  Future<void> updateTask(TaskDTO task) async {
     try {
       await _dataBase.updateTask(task);
       logger.d('TaskLocalSource: task updated');

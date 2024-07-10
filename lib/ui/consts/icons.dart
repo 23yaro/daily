@@ -48,6 +48,7 @@ abstract class IconsApp {
   );
 
   static const Map<Importance, Icon> importancies = {
+    Importance.none: Icon(null),
     Importance.low: priorityLow,
     Importance.high: priorityHigh,
   };

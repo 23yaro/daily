@@ -1,5 +1,6 @@
 import 'package:daily/features/home/provider_notifiers/task_list_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../../ui/consts/colors.dart';
@@ -21,7 +22,7 @@ class TaskDeleteButton extends StatelessWidget {
 
     void onPressed() {
       listNotifier.deleteTask(taskNotifier.task.id);
-      Navigator.pop(context);
+      context.pop();
     }
 
     return Align(
@@ -30,7 +31,7 @@ class TaskDeleteButton extends StatelessWidget {
         onPressed: taskNotifier.isNewTask ? null : onPressed,
         style: TextButton.styleFrom(foregroundColor: ColorsApp.red),
         icon: icon,
-        label: Text(S.of(context).taskDelete),
+        label: Text(context.strings().taskDelete),
       ),
     );
   }

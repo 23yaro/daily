@@ -1,9 +1,10 @@
 import 'package:daily/features/home/provider_notifiers/task_list_notifier.dart';
+import 'package:daily/utils/extensions/date_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../domain/model/task_model.dart';
 import '../../../../ui/consts/icons.dart';
-import '../../../../utils/formatters/formatters.dart';
 import 'home_list_item_check_box.dart';
 import 'home_list_item_dismissible_wrapper.dart';
 import 'home_list_item_info_button.dart';
@@ -11,16 +12,14 @@ import 'home_list_item_info_button.dart';
 class HomeListItem extends StatelessWidget {
   const HomeListItem({
     super.key,
-    required this.id,
+    required this.task,
   });
 
-  final String id;
+  final Task task;
 
   @override
   Widget build(BuildContext context) {
     final notifier = context.watch<TaskListNotifier>();
-
-    final task = notifier.tasks.firstWhere((e) => e.id == id);
 
     final titleTextStyle = TextStyle(
       decoration: TextDecoration.lineThrough,
@@ -65,23 +64,22 @@ class HomeListItem extends StatelessWidget {
     );
 
     ///subtitle
-    Widget? subtitle;
-    if (task.deadline != null) {
-      subtitle = Text(
-        Formatters.convertDateTimeToString(task.deadline!),
-        style: subTitleTextStyle,
-      );
-    }
+    Widget? subtitle = task.deadline == null
+        ? null
+        : Text(
+            task.deadline!.convertDateTimeToString(),
+            style: subTitleTextStyle,
+          );
 
     return DismissibleWrapper(
-      id: id,
+      id: task.id,
       startToEnd: completeTask,
       endToStart: deleteTask,
       child: ListTile(
         leading: checkBoxWithAdditionalIcon,
         title: title,
         subtitle: subtitle,
-        trailing: HomeItemInfoButton(id: id),
+        trailing: HomeItemInfoButton(task: task),
       ),
     );
   }

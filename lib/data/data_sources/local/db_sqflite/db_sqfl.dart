@@ -1,13 +1,13 @@
 import 'dart:io';
 
+import 'package:daily/data/mappers/task_mappers.dart';
+import 'package:sqflite/sqflite.dart';
+
 import '../../../../utils/logger/logger.dart';
 import '../../../dto/task_dto.dart';
 import '../task_data_base.dart';
-import 'package:sqflite/sqflite.dart';
 
 class SQFLDataBase implements TaskDataBase {
-  SQFLDataBase();
-
   static const String tableName = 'tasks';
   final int _version = 1;
   late final Database _db;
@@ -33,7 +33,7 @@ class SQFLDataBase implements TaskDataBase {
   }
 
   @override
-  Future<void> insertTask(TaskDto taskDto) async {
+  Future<void> addTask(TaskDTO taskDto) async {
     await _db.insert(
       tableName,
       taskDto.toDbJson(),
@@ -42,29 +42,29 @@ class SQFLDataBase implements TaskDataBase {
   }
 
   @override
-  Future<TaskDto> getTask(String id) async {
+  Future<TaskDTO?> getTask(String id) async {
     try {
       List<Map> result = await _db.query(
         tableName,
         where: "id = ?",
         whereArgs: [id],
       );
-      return TaskDto.fromDbJson(result.first as Map<String, dynamic>);
+      return TaskDTO.fromDbJson(result.first as Map<String, dynamic>);
     } catch (error, stackTrace) {
       logger.e(
         "Database failed to get task",
         error: error,
         stackTrace: stackTrace,
       );
-      rethrow;
+      return null;
     }
   }
 
   @override
-  Future<List<TaskDto>> getAll() async {
+  Future<List<TaskDTO>> getTaskList() async {
     try {
       List<Map<String, dynamic>> result = await _db.query(tableName);
-      return result.map((t) => TaskDto.fromDbJson(t)).toList();
+      return result.map((t) => TaskDTO.fromDbJson(t)).toList();
     } catch (error, stackTrace) {
       logger.e(
         "Database failed to get all tasks",
@@ -76,9 +76,9 @@ class SQFLDataBase implements TaskDataBase {
   }
 
   @override
-  Future<void> saveTaskList(List<TaskDto> tasks) async {
+  Future<void> saveTaskList(List<TaskDTO> tasks) async {
+    _db.delete(tableName);
     final batch = _db.batch();
-
     for (var task in tasks) {
       batch.insert(
         tableName,
@@ -96,7 +96,7 @@ class SQFLDataBase implements TaskDataBase {
   }
 
   @override
-  Future<void> updateTask(TaskDto task) async {
+  Future<void> updateTask(TaskDTO task) async {
     await _db.update(
       tableName,
       task.toDbJson(),

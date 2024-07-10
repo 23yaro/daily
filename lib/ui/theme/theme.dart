@@ -28,9 +28,12 @@ abstract class ThemeApp {
       shape: CircleBorder(),
     ),
     switchTheme: SwitchThemeData(
-      trackColor: WidgetStatePropertyAll(
-        ColorsApp.blue.withOpacity(0.3),
-      ),
+      trackColor: WidgetStateProperty.resolveWith ((states) {
+        if (states.contains(WidgetState.selected)) {
+          return ColorsApp.blue.withOpacity(0.5);
+        }
+        return ColorsApp.blue.withOpacity(0.2);
+      }),
       trackOutlineColor: WidgetStatePropertyAll(
         ColorsApp.blue.withOpacity(0.01),
       ),
@@ -47,6 +50,7 @@ abstract class ThemeApp {
       selectionColor: ColorsApp.blue,
       selectionHandleColor: ColorsApp.blue,
     ),
+    dividerColor: ColorsApp.separator,
     fontFamily: "Roboto",
   );
 }
