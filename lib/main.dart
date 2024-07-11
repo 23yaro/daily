@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Daily',
         theme: ThemeApp.lightTheme,
+        darkTheme: ThemeApp.darkTheme,
         supportedLocales: S.supportedLocales,
         locale: S.locale,
         localizationsDelegates: S.localizationDelegates,

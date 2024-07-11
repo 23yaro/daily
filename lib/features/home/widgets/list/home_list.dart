@@ -19,7 +19,9 @@ class HomeList extends StatelessWidget {
 
     final listItems = notifier.isLoading
         ? const SliverFillRemaining(
-            child: Center(child: CircularProgressIndicator()),
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
           )
         : SliverList(
             delegate: SliverChildBuilderDelegate(

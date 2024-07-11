@@ -21,13 +21,12 @@ class HomeListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final notifier = context.watch<TaskListNotifier>();
 
-    final titleTextStyle = TextStyle(
-      decoration: TextDecoration.lineThrough,
-      color: Theme.of(context).hintColor,
-    );
-
-    final subTitleTextStyle =
-        Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 14.0);
+    final completableTextStyle = task.done
+        ? TextStyle(
+            decoration: TextDecoration.lineThrough,
+            color: Theme.of(context).hintColor,
+          )
+        : null;
 
     void completeTask() async => await notifier.updateTask(task..complete());
 
@@ -49,7 +48,7 @@ class HomeListItem extends StatelessWidget {
         SizedBox(width: 22.0, child: checkBox),
         SizedBox(
           width: 6.0,
-          child: IconsApp.importancies[task.importance],
+          child: task.done ? null : IconsApp.importancies[task.importance],
         ),
       ],
     );
@@ -60,16 +59,16 @@ class HomeListItem extends StatelessWidget {
       maxLines: 2,
       textAlign: TextAlign.justify,
       overflow: TextOverflow.ellipsis,
-      style: task.done ? titleTextStyle : null,
+      style: completableTextStyle,
     );
 
     ///subtitle
-    Widget? subtitle = task.deadline == null
-        ? null
-        : Text(
+    Widget? subtitle = task.hasDeadline
+        ? Text(
             task.deadline!.convertDateTimeToString(),
-            style: subTitleTextStyle,
-          );
+            style: completableTextStyle,
+          )
+        : null;
 
     return DismissibleWrapper(
       id: task.id,
