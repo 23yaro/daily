@@ -37,7 +37,7 @@ class _TaskPrioritySelectorState extends State<TaskPrioritySelector> {
         value: Importance.low,
         child: Text(
           priorityLow,
-          style: const TextStyle(color: ColorsApp.labelPrimary),
+          style: const TextStyle(color: ColorsApp.gray),
         ),
       ),
       DropdownMenuItem<Importance>(
