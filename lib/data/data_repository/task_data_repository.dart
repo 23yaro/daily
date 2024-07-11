@@ -21,7 +21,7 @@ class TaskDataRepository implements TaskRepository {
   Future<bool> addTask(Task task) async {
     logger.d("Data repository: addTask");
     try {
-      await _remoteSource.addTask(task.toTaskDto());
+      _remoteSource.addTask(task.toTaskDto());
       await _localSource.addTask(task.toTaskDto());
       return true;
     } catch (error, stackTrace) {
@@ -55,7 +55,7 @@ class TaskDataRepository implements TaskRepository {
   Future<bool> updateTask(Task updatedTask) async {
     logger.d("Data repository: updateTask");
     try {
-      await _remoteSource.updateTask(updatedTask.toTaskDto());
+      _remoteSource.updateTask(updatedTask.toTaskDto());
       await _localSource.updateTask(updatedTask.toTaskDto());
       return true;
     } catch (error, stackTrace) {
@@ -72,7 +72,7 @@ class TaskDataRepository implements TaskRepository {
   Future<bool> deleteTask(String id) async {
     logger.d("Data repository: deleteTask");
     try {
-      await _remoteSource.deleteTaskById(id);
+      _remoteSource.deleteTaskById(id);
       await _localSource.deleteTask(id);
       return true;
     } catch (error, stackTrace) {

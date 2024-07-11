@@ -1,3 +1,4 @@
+import 'package:daily/features/Home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +17,7 @@ class TaskAppBar extends StatelessWidget {
 
     final taskNotifier = context.watch<TaskNotifier>();
 
-    void close() => context.pop();
+    void close() => context.go(HomeScreen.routeName());
 
     void saveTask() async {
       taskNotifier.isNewTask

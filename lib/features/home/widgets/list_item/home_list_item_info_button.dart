@@ -15,7 +15,7 @@ class HomeItemInfoButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void onPressed() => context.push(TaskScreen.routeName(), extra: task);
+    void onPressed() => context.go(TaskScreen.routeName(), extra: task);
     return SizedBox(
       width: 22.0,
       height: 22.0,

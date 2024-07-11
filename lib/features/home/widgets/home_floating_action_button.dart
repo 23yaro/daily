@@ -8,7 +8,7 @@ class FABApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void onPressed() => context.push(TaskScreen.routeName());
+    void onPressed() => context.go(TaskScreen.routeName());
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 20.0),
