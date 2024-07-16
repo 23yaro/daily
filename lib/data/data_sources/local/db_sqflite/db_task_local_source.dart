@@ -26,7 +26,7 @@ class TaskDBLocalSource implements TaskLocalSource {
   }
 
   @override
-  Future<TaskDTO?> getTask(String id) async {
+  Future<TaskDTO> getTask(String id) async {
     TaskDTO? task;
     try {
       task = await _dataBase.getTask(id);

@@ -3,7 +3,7 @@ import '../../dto/task_dto.dart';
 abstract class TaskDataBase {
   Future<void> addTask(TaskDTO task);
 
-  Future<TaskDTO?> getTask(String id);
+  Future<TaskDTO> getTask(String id);
 
   Future<void> updateTask(TaskDTO task);
 
