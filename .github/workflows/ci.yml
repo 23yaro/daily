@@ -53,17 +53,18 @@ jobs:
 
       - name: Install dependencies
         run: flutter pub get
-
+        
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+          
       - name: Build apk
         env:
           ENVIRONMENT_VARIABLES: ${{ secrets.ENVIRONMENT_VARIABLES }}
         run: flutter build apk "$ENVIRONMENT_VARIABLES"
 
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'zulu'
-          java-version: '11'
       - name: Upload apk to Firebase distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1.7.0
         with:
