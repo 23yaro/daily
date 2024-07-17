@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import '../../../ui/consts/colors.dart';
 import '../../../ui/consts/icons.dart';
 import '../../../utils/s/s.dart';
-import '../../Home/home_screen.dart';
+import '../../home/home_screen.dart';
 import '../provider_notifiers/task_notifier.dart';
 
 class TaskDeleteButton extends StatelessWidget {

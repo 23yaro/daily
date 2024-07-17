@@ -1,5 +1,5 @@
-import 'package:daily/features/Home/widgets/appbar/home_appbar_visibility_button.dart';
 import 'package:daily/features/home/provider_notifiers/task_list_notifier.dart';
+import 'package:daily/features/home/widgets/appbar/home_appbar_visibility_button.dart';
 import 'package:daily/utils/environment_variables/environment_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

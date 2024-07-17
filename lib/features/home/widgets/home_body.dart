@@ -1,4 +1,4 @@
-import 'package:daily/features/Home/widgets/list/home_list.dart';
+import 'package:daily/features/home/widgets/list/home_list.dart';
 import 'package:flutter/material.dart';
 
 import 'appbar/home_appbar.dart';
