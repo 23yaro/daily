@@ -65,5 +65,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'daily-fd234.appspot.com',
     iosBundleId: 'com.example.daily',
   );
-
 }
