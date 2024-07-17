@@ -47,7 +47,9 @@ jobs:
         run: flutter pub get
 
       - name: Build apk
-        run: flutter build apk ${{ secrets.ENVIRONMENT_VARIABLES }}
+        env:
+          ENVIRONMENT_VARIABLES: ${{ secrets.ENVIRONMENT_VARIABLES }}
+        run: flutter build apk "$ENVIRONMENT_VARIABLES"
 
       - name: Setup Java
         uses: actions/setup-java@v4
