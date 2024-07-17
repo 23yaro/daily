@@ -42,7 +42,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "app.daily"
+        applicationId "com.example.daily"
         minSdkVersion flutter.minSdkVersion
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
