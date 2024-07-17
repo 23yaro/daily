@@ -13,7 +13,12 @@ class HomeAppbarDevShield extends StatelessWidget {
         borderRadius: BorderRadius.circular(5.0),
         color: ColorsApp.devShieldColor,
       ),
-      child: const Text('DEV'),
+      child: const Text(
+        'DEV',
+        style: TextStyle(
+          color: ColorsApp.white,
+        ),
+      ),
     );
   }
 }
