@@ -24,6 +24,8 @@ void main() async {
   setupGetIt();
   await GetIt.I.allReady();
 
+  initCrashlytics();
+
   runApp(const MyApp());
 }
 
