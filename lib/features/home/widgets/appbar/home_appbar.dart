@@ -1,9 +1,11 @@
 import 'package:daily/features/Home/widgets/appbar/home_appbar_visibility_button.dart';
 import 'package:daily/features/home/provider_notifiers/task_list_notifier.dart';
+import 'package:daily/utils/environment_variables/environment_variables.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../utils/s/s.dart';
+import 'home_appbar_dev_shield.dart';
 
 class HomeAppBar extends StatelessWidget {
   const HomeAppBar({super.key});
@@ -40,7 +42,15 @@ class _HomeSliverAppBar extends SliverPersistentHeaderDelegate {
         .where((task) => task.done)
         .length;
 
-    final String subTitleText = '$completedText $countOfCompletedTasks';
+    final subTitleText = '$completedText $countOfCompletedTasks';
+
+    const devShield = EnvironmentVariables.appVersion == 'DEV'
+        ? Positioned(
+            right: 68,
+            bottom: 14,
+            child: HomeAppbarDevShield(),
+          )
+        : SizedBox();
 
     return Stack(
       fit: StackFit.expand,
@@ -79,6 +89,7 @@ class _HomeSliverAppBar extends SliverPersistentHeaderDelegate {
           bottom: 0,
           child: HomeVisibilityButton(),
         ),
+        devShield,
       ],
     );
   }

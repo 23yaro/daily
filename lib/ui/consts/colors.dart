@@ -16,6 +16,7 @@ abstract class ColorsApp {
   static const Color backPrimary = Color(0xFFF7F6F2);
   static const Color backSecondary = Color(0xFFFFFFFF);
   static const Color backElevated = Color(0xFFFFFFFF);
+  static const Color devShieldColor = Color(0xffb49018);
 }
 
 abstract class ColorsDark {
@@ -34,4 +35,5 @@ abstract class ColorsDark {
   static const Color backPrimary = Color(0xFF161618);
   static const Color backSecondary = Color(0xFF252528);
   static const Color backElevated = Color(0xFF3C3C3F);
+  static const Color devShieldColor = Color(0xFFb49018);
 }
