@@ -1,5 +1,6 @@
 import 'package:daily/features/home/provider_notifiers/task_list_notifier.dart';
 import 'package:daily/utils/extensions/date_formatter.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -28,9 +29,15 @@ class HomeListItem extends StatelessWidget {
           )
         : null;
 
-    void completeTask() async => await notifier.updateTask(task..complete());
+    void completeTask() async {
+      await notifier.updateTask(task..complete());
+      FirebaseAnalytics.instance.logEvent(name: "complete_task");
+    }
 
-    void deleteTask() async => await notifier.deleteTask(task.id);
+    void deleteTask() async {
+      await notifier.deleteTask(task.id);
+      FirebaseAnalytics.instance.logEvent(name: "delete_task");
+    }
 
     ///checkBox
     Widget checkBox = CheckBoxApp(

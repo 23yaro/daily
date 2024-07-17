@@ -1,4 +1,5 @@
 import 'package:daily/features/home/provider_notifiers/task_list_notifier.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -24,6 +25,7 @@ class TaskDeleteButton extends StatelessWidget {
     void onPressed() {
       listNotifier.deleteTask(taskNotifier.task.id);
       context.go(HomeScreen.routeName());
+      FirebaseAnalytics.instance.logEvent(name: "delete_task");
     }
 
     return Align(
