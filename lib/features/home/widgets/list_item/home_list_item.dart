@@ -20,7 +20,12 @@ class HomeListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final notifier = context.watch<TaskListNotifier>();
+    final notifier = context.read<TaskListNotifier>();
+
+    Future<void> completeTask() async {
+      await notifier.updateTask(task..complete());
+      FirebaseAnalytics.instance.logEvent(name: "complete_task");
+    }
 
     final completableTextStyle = task.done
         ? TextStyle(
@@ -28,16 +33,6 @@ class HomeListItem extends StatelessWidget {
             color: Theme.of(context).hintColor,
           )
         : null;
-
-    void completeTask() async {
-      await notifier.updateTask(task..complete());
-      FirebaseAnalytics.instance.logEvent(name: "complete_task");
-    }
-
-    void deleteTask() async {
-      await notifier.deleteTask(task.id);
-      FirebaseAnalytics.instance.logEvent(name: "delete_task");
-    }
 
     ///checkBox
     Widget checkBox = CheckBoxApp(
@@ -78,9 +73,7 @@ class HomeListItem extends StatelessWidget {
         : null;
 
     return DismissibleWrapper(
-      id: task.id,
-      startToEnd: completeTask,
-      endToStart: deleteTask,
+      task: task,
       child: ListTile(
         leading: checkBoxWithAdditionalIcon,
         title: title,
