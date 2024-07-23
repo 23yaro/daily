@@ -24,7 +24,7 @@ class _TaskTextFieldState extends State<TaskTextField> {
   Widget build(BuildContext context) {
     final notifier = context.watch<TaskNotifier>();
 
-    void unFocus() => FocusScope.of(context).unfocus();
+    void unFocus(_) => FocusScope.of(context).unfocus();
 
     void saveText(String text) => notifier.text = text;
 
@@ -43,10 +43,10 @@ class _TaskTextFieldState extends State<TaskTextField> {
               keyboardType: TextInputType.multiline,
               maxLines: null,
               decoration: InputDecoration(
-                hintText: S.of(context).taskTextField,
+                hintText: context.strings().taskTextField,
                 border: InputBorder.none,
               ),
-              onTapOutside: (event) => unFocus(),
+              onTapOutside: unFocus,
               onChanged: saveText,
             ),
           ),

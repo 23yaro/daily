@@ -1,10 +1,15 @@
 import '../../dto/task_dto.dart';
 
 abstract class TaskLocalSource {
-  Future<List<TaskDto>> getTaskList();
-  Future<void> saveTaskList(List<TaskDto> list);
-  Future<TaskDto> getTask(String id);
-  Future<void> addTask(TaskDto task);
-  Future<void> updateTask(TaskDto task);
+  Future<void> addTask(TaskDTO task);
+
+  Future<TaskDTO?> getTask(String id);
+
+  Future<void> updateTask(TaskDTO task);
+
   Future<void> deleteTask(String id);
+
+  Future<List<TaskDTO>> getTaskList();
+
+  Future<void> saveTaskList(List<TaskDTO> list);
 }

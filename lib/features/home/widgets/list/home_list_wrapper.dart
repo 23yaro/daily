@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ListWrapper extends StatelessWidget {
-  const ListWrapper({super.key, required this.sliver});
+  const ListWrapper({
+    super.key,
+    required this.sliver,
+  });
 
   final Widget sliver;
 

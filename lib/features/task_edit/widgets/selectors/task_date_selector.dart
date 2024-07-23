@@ -1,8 +1,8 @@
+import 'package:daily/utils/extensions/date_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../ui/consts/colors.dart';
-import '../../../../utils/formatters/formatters.dart';
 import '../../../../utils/s/s.dart';
 import '../../provider_notifiers/task_notifier.dart';
 
@@ -31,16 +31,11 @@ class TaskDateSelector extends StatelessWidget {
       }
     }
 
-    onChanged(bool newValue, BuildContext context) {
-      if (!newValue) {
-        notifier.deadline = null;
-      } else {
-        selectDate(context);
-      }
-    }
+    void onChanged(bool newValue, BuildContext context) =>
+        newValue ? selectDate(context) : notifier.deadline = null;
 
     return ListTile(
-      title: Text(S.of(context).taskDeadline),
+      title: Text(context.strings().taskDeadline),
       subtitle: notifier.task.hasDeadline
           ? Align(
               alignment: Alignment.topLeft,
@@ -52,8 +47,7 @@ class TaskDateSelector extends StatelessWidget {
                     padding: EdgeInsets.zero,
                   ),
                   onPressed: () => selectDate(context),
-                  child: Text(
-                      Formatters.convertDateTimeToString(notifier.deadline!)),
+                  child: Text(notifier.deadline!.convertDateTimeToString()),
                 ),
               ),
             )

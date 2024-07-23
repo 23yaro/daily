@@ -1,11 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 abstract class S {
-  static const String languageCode = 'ru';
+  static final languageCode = Platform.localeName.split('_')[0];
 
-  static const locale = Locale(languageCode);
+  static final locale = Locale(languageCode);
 
   static const supportedLocales = [
     Locale('en'),
@@ -18,7 +20,8 @@ abstract class S {
     GlobalCupertinoLocalizations.delegate,
     AppLocalizations.delegate,
   ];
+}
 
-  static AppLocalizations of(BuildContext context) =>
-      AppLocalizations.of(context);
+extension SExtension on BuildContext{
+  AppLocalizations strings() => AppLocalizations.of(this);
 }

@@ -18,27 +18,30 @@ class _TaskPrioritySelectorState extends State<TaskPrioritySelector> {
   Widget build(BuildContext context) {
     final notifier = context.watch<TaskNotifier>();
 
-    final priorityNone = S.of(context).taskPriorityDefault;
+    final priorityNone = context.strings().taskPriorityDefault;
 
-    final priorityLow = S.of(context).taskPriorityLow;
+    final priorityLow = context.strings().taskPriorityLow;
 
-    final priorityHigh = S.of(context).taskPriorityHigh;
+    final priorityHigh = context.strings().taskPriorityHigh;
 
     final items = [
       DropdownMenuItem<Importance>(
+        key: const ObjectKey(Importance.none),
         value: Importance.none,
         child: Text(
           priorityNone,
         ),
       ),
       DropdownMenuItem<Importance>(
+        key: const ObjectKey(Importance.low),
         value: Importance.low,
         child: Text(
           priorityLow,
-          style: const TextStyle(color: ColorsApp.labelPrimary),
+          style: const TextStyle(color: ColorsApp.gray),
         ),
       ),
       DropdownMenuItem<Importance>(
+        key: const ObjectKey(Importance.high),
         value: Importance.high,
         child: Text(
           priorityHigh,
@@ -47,16 +50,11 @@ class _TaskPrioritySelectorState extends State<TaskPrioritySelector> {
       ),
     ];
 
-    void onChanged(Importance? newValue) {
-      if (newValue == null) {
-        return;
-      } else {
-        notifier.importance = newValue;
-      }
-    }
+    void onChanged(Importance? newValue) =>
+        newValue == null ? null : notifier.importance = newValue;
 
     return ListTile(
-      title: Text(S.of(context).taskPriority),
+      title: Text(context.strings().taskPriority),
       subtitle: Align(
         alignment: Alignment.centerLeft,
         child: DropdownButton(

@@ -2,7 +2,6 @@ import 'package:daily/features/task_edit/widgets/selectors/task_date_selector.da
 import 'package:daily/features/task_edit/widgets/selectors/task_priority_selector.dart';
 import 'package:daily/features/task_edit/widgets/task_appbar.dart';
 import 'package:daily/features/task_edit/widgets/task_delete_button.dart';
-import 'package:daily/features/task_edit/widgets/task_divider.dart';
 import 'package:daily/features/task_edit/widgets/task_text_field.dart';
 import 'package:flutter/material.dart';
 
@@ -15,9 +14,16 @@ class TaskBody extends StatelessWidget {
       children: const [
         TaskTextField(),
         TaskPrioritySelector(),
-        TaskDivider(padding: EdgeInsets.symmetric(horizontal: 15.0)),
+        Divider(
+          indent: 15,
+          endIndent: 15,
+          thickness: 0.2,
+        ),
         TaskDateSelector(),
-        TaskDivider(padding: EdgeInsets.only(top: 40.0)),
+        Divider(
+          thickness: 0.2,
+          height: 25.0,
+        ),
         TaskDeleteButton(),
       ],
     );

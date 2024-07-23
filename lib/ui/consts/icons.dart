@@ -9,7 +9,7 @@ abstract class IconsApp {
   );
   static const priorityLow = Icon(
     Icons.arrow_drop_down_outlined,
-    color: ColorsApp.labelTertiary,
+    color: ColorsApp.gray,
   );
   static const priorityHigh = Icon(
     Icons.priority_high_outlined,
@@ -48,6 +48,7 @@ abstract class IconsApp {
   );
 
   static const Map<Importance, Icon> importancies = {
+    Importance.none: Icon(null),
     Importance.low: priorityLow,
     Importance.high: priorityHigh,
   };

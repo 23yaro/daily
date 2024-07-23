@@ -5,13 +5,15 @@ import '../../../domain/task_usecase/task_usecase.dart';
 import '../../../utils/logger/logger.dart';
 
 class TaskListNotifier extends ChangeNotifier {
-  TaskListNotifier(this._taskUseCase);
+  TaskListNotifier({required TaskUseCase taskUseCase})
+      : _taskUseCase = taskUseCase;
 
   final TaskUseCase _taskUseCase;
 
   List<Task> tasks = [];
 
   bool _isLoading = false;
+
   bool get isLoading => _isLoading;
 
   bool visibility = true;
@@ -26,7 +28,7 @@ class TaskListNotifier extends ChangeNotifier {
     notifyListeners();
 
     try {
-      tasks = await _taskUseCase.getTaskList();
+      tasks = await _taskUseCase.callGetTaskList();
     } catch (error, stackTrace) {
       logger.e(
         "TaskListNotifier: error load tasks",
@@ -34,13 +36,27 @@ class TaskListNotifier extends ChangeNotifier {
         stackTrace: stackTrace,
       );
     } finally {
+      updateTasks();
       _isLoading = false;
       notifyListeners();
     }
   }
 
+  Future<void> updateTasks() async {
+    try {
+      await _taskUseCase.callUpdateTaskList(tasks);
+    } catch (error, stackTrace) {
+      logger.e(
+        "TaskListNotifier: error load tasks",
+        error: error,
+        stackTrace: stackTrace,
+      );
+    }
+  }
+
   Future<bool> addTask(Task task) async {
-    final result = await _taskUseCase.addTask(task);
+    final result = await _taskUseCase.callAddTask(task);
+
     if (result) {
       tasks.add(task);
       notifyListeners();
@@ -53,7 +69,8 @@ class TaskListNotifier extends ChangeNotifier {
   }
 
   Future<bool> updateTask(Task task) async {
-    final result = await _taskUseCase.updateTask(task);
+    final result = await _taskUseCase.callUpdateTask(task);
+
     if (result) {
       logger.d('notifier: task updated');
       tasks[tasks.indexWhere((e) => e.id == task.id)] = task;
@@ -65,7 +82,8 @@ class TaskListNotifier extends ChangeNotifier {
   }
 
   Future<bool> deleteTask(String id) async {
-    final result = await _taskUseCase.deleteTask(id);
+    final result = await _taskUseCase.callDeleteTask(id);
+
     if (result) {
       tasks.removeWhere((e) => e.id == id);
       notifyListeners();

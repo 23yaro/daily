@@ -19,7 +19,6 @@ class DismissibleWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //CountLog.count('item rebuild');
     Future<bool> confirmDismiss(DismissDirection direction) async {
       if (direction == DismissDirection.startToEnd) {
         startToEnd();

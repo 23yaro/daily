@@ -1,3 +1,4 @@
+import 'package:daily/data/mappers/task_mappers.dart';
 import 'package:daily/domain/model/task_model.dart';
 import 'package:daily/domain/repository/task_repository.dart';
 
@@ -12,7 +13,6 @@ class TaskDataRepository implements TaskRepository {
     required TaskLocalSource localSource,
   })  : _remoteSource = remoteSource,
         _localSource = localSource;
-
   final TaskRemoteSource _remoteSource;
 
   final TaskLocalSource _localSource;
@@ -21,39 +21,42 @@ class TaskDataRepository implements TaskRepository {
   Future<bool> addTask(Task task) async {
     logger.d("Data repository: addTask");
     try {
-      TaskDto taskDto = await _remoteSource.addTask(task.toTaskDto());
-      await _localSource.addTask(taskDto);
+      _remoteSource.addTask(task.toTaskDto());
+      await _localSource.addTask(task.toTaskDto());
       return true;
     } catch (error, stackTrace) {
-      logger.e("Data repository: failed to add task",
-          error: error, stackTrace: stackTrace);
+      logger.e(
+        "Data repository: failed to add task",
+        error: error,
+        stackTrace: stackTrace,
+      );
       return false;
     }
   }
 
   @override
-  Future<Task> getTask(String id) async {
+  Future<Task?> getTask(String id) async {
+    TaskDTO? taskDto;
     logger.d("Data repository: getTask");
     try {
-      TaskDto taskDto = await _remoteSource.getTaskById(id);
-      await _localSource.updateTask(taskDto);
-      return taskDto.toTask();
+      taskDto = await _localSource.getTask(id);
+      taskDto ??= await _remoteSource.getTaskById(id);
     } catch (error, stackTrace) {
       logger.e(
         "Data repository: failed to get task",
         error: error,
         stackTrace: stackTrace,
       );
-      rethrow;
     }
+    return taskDto?.toTask();
   }
 
   @override
   Future<bool> updateTask(Task updatedTask) async {
     logger.d("Data repository: updateTask");
     try {
-      TaskDto taskDto = await _remoteSource.updateTask(updatedTask.toTaskDto());
-      await _localSource.updateTask(taskDto);
+      _remoteSource.updateTask(updatedTask.toTaskDto());
+      await _localSource.updateTask(updatedTask.toTaskDto());
       return true;
     } catch (error, stackTrace) {
       logger.e(
@@ -69,7 +72,7 @@ class TaskDataRepository implements TaskRepository {
   Future<bool> deleteTask(String id) async {
     logger.d("Data repository: deleteTask");
     try {
-      await _remoteSource.deleteTaskById(id);
+      _remoteSource.deleteTaskById(id);
       await _localSource.deleteTask(id);
       return true;
     } catch (error, stackTrace) {
@@ -86,9 +89,12 @@ class TaskDataRepository implements TaskRepository {
   Future<List<Task>> getTaskList() async {
     logger.d("Data repository: getTaskList");
     try {
-      List<TaskDto> taskList = await _remoteSource.getTaskList();
-      await _localSource.saveTaskList(taskList);
-      List<TaskDto> cachedTasks = await _localSource.getTaskList();
+      List<TaskDTO>? taskList = await _remoteSource.getTaskList();
+      logger.d(taskList);
+      if (taskList != null) {
+        await _localSource.saveTaskList(taskList);
+      }
+      List<TaskDTO> cachedTasks = await _localSource.getTaskList();
       return cachedTasks.map((e) => e.toTask()).toList();
     } catch (error, stackTrace) {
       logger.e(
@@ -102,11 +108,14 @@ class TaskDataRepository implements TaskRepository {
 
   @override
   Future<bool> updateTaskList(List<Task> list) async {
+    List<TaskDTO>? tasksDTOsList;
     logger.d("Data repository: updateTaskList");
     try {
-      List<TaskDto> tasksDto = await _remoteSource
+      tasksDTOsList = await _remoteSource
           .updateTaskList(list.map((t) => t.toTaskDto()).toList());
-      await _localSource.saveTaskList(tasksDto);
+      if (tasksDTOsList != null) {
+        await _localSource.saveTaskList(tasksDTOsList);
+      }
       return true;
     } catch (error, stackTrace) {
       logger.e(

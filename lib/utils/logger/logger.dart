@@ -5,12 +5,3 @@ final logger = Logger(
   printer: PrettyPrinter(),
   output: ConsoleOutput(),
 );
-
-extension CountLog on Logger {
-  static int counter = 0;
-
-  static count(String text) {
-    logger.i('$counter) $text');
-    counter++;
-  }
-}

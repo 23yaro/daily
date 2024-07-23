@@ -2,32 +2,32 @@ import '../model/task_model.dart';
 import '../repository/task_repository.dart';
 
 class TaskUseCase {
-  TaskUseCase(this._repository);
-
+  TaskUseCase({
+    required TaskRepository repository,
+  }) : _repository = repository;
   final TaskRepository _repository;
 
-  Future<bool> addTask(Task task) async {
+  Future<bool> callAddTask(Task task) async {
     return await _repository.addTask(task);
   }
 
-  Future<bool> deleteTask(String id) async {
+  Future<bool> callDeleteTask(String id) async {
     return await _repository.deleteTask(id);
   }
 
-  Future<Task> getTask(String id) async {
-    Task task = await _repository.getTask(id);
-    return task;
+  Future<Task?> callGetTask(String id) async {
+    return await _repository.getTask(id);
   }
 
-  Future<List<Task>> getTaskList() async {
+  Future<List<Task>> callGetTaskList() async {
     return await _repository.getTaskList();
   }
 
-  Future<bool> updateTask(Task task) async {
+  Future<bool> callUpdateTask(Task task) async {
     return await _repository.updateTask(task);
   }
 
-  Future<bool> updateTaskList(List<Task> taskList) async {
+  Future<bool> callUpdateTaskList(List<Task> taskList) async {
     return await _repository.updateTaskList(taskList);
   }
 }

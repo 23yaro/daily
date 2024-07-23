@@ -32,7 +32,7 @@ class _HomeSliverAppBar extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    final completedText = S.of(context).homeAppBarSubTitle;
+    final completedText = context.strings().homeAppBarSubTitle;
 
     final countOfCompletedTasks = context
         .watch<TaskListNotifier>()
@@ -50,7 +50,7 @@ class _HomeSliverAppBar extends SliverPersistentHeaderDelegate {
           bottom: (46 - shrinkOffset).clamp(16, 46),
           left: (70 - shrinkOffset).clamp(26, 70),
           child: Text(
-            S.of(context).homeAppBarTitle,
+            context.strings().homeAppBarTitle,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   fontSize: (32 - shrinkOffset / 3).clamp(20, 32),
                 ),

@@ -1,8 +1,5 @@
 import 'package:uuid/uuid.dart';
 
-import '../../data/dto/task_dto.dart';
-import '../../utils/formatters/formatters.dart';
-
 class Task {
   Task({
     String? id,
@@ -60,27 +57,3 @@ class Task {
 }
 
 enum Importance { none, low, high }
-
-extension Mapper on Task {
-  TaskDto toTaskDto() {
-    return TaskDto(
-        id: id,
-        text: text,
-        importance: switch (importance) {
-          Importance.none => "basic",
-          Importance.low => "low",
-          Importance.high => "important",
-        },
-        deadline: hasDeadline
-            ? Duration(milliseconds: deadline!.millisecondsSinceEpoch).inSeconds
-            : null,
-        done: done,
-        createdAt: Duration(
-          milliseconds: createdAt.millisecondsSinceEpoch,
-        ).inSeconds,
-        changedAt: Duration(
-          milliseconds: changedAt.millisecondsSinceEpoch,
-        ).inSeconds,
-        lastUpdatedBy: "myDevice");
-  }
-}

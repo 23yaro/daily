@@ -1,4 +1,6 @@
+import 'package:daily/features/Home/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 import '../../../ui/consts/icons.dart';
@@ -15,14 +17,12 @@ class TaskAppBar extends StatelessWidget {
 
     final taskNotifier = context.watch<TaskNotifier>();
 
-    void close() => Navigator.pop(context);
+    void close() => context.go(HomeScreen.routeName());
 
-    void saveTask() {
-      if (taskNotifier.isNewTask) {
-        listNotifier.addTask(taskNotifier.task);
-      } else {
-        listNotifier.updateTask(taskNotifier.task);
-      }
+    void saveTask() async {
+      taskNotifier.isNewTask
+          ? await listNotifier.addTask(taskNotifier.task)
+          : await listNotifier.updateTask(taskNotifier.task);
       close();
     }
 
@@ -36,8 +36,9 @@ class TaskAppBar extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(right: 5),
           child: TextButton(
+            key: const ValueKey('save_button'),
             onPressed: taskNotifier.text == '' ? null : saveTask,
-            child: Text(S.of(context).taskAppBarSave),
+            child: Text(context.strings().taskAppBarSave),
           ),
         )
       ],
