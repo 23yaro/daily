@@ -28,16 +28,8 @@ jobs:
         run: flutter analyze
         continue-on-error: true
 
-      - name: Run state tests
-        run: flutter test test/features/home/provider_notifiers/task_list_notifier.dart
-        continue-on-error: true
-
-      - name: Remote source test
-        run: flutter test test/data/data_sources/remote/api/api_task_remote_source.dart
-        continue-on-error: true
-
-      - name: Repository test
-        run: flutter test test/data/data_repository/task_data_repository.dart
+      - name: Run tests
+        run: flutter test
         continue-on-error: true
 
   build:
@@ -53,22 +45,12 @@ jobs:
 
       - name: Install dependencies
         run: flutter pub get
-        
+
+      - name: Build apk
+        run: flutter build apk
+
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
-          java-version: '17'
-          
-      - name: Build apk
-        env:
-          ENVIRONMENT_VARIABLES: ${{ secrets.ENVIRONMENT_VARIABLES }}
-        run: flutter build apk "$ENVIRONMENT_VARIABLES"
-
-      - name: Upload apk to Firebase distribution
-        uses: wzieba/Firebase-Distribution-Github-Action@v1.7.0
-        with:
-          appId: ${{ secrets.FIREBASE_APP_ID }}
-          serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
-          groups: Testers
-          file: build/app/outputs/flutter-apk/app-release.apk
+          java-version: '11'
