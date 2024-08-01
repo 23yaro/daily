@@ -1,5 +1,6 @@
 import 'package:daily/features/task_edit/provider_notifiers/task_notifier.dart';
 import 'package:daily/features/task_edit/widgets/task_body.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,6 +15,10 @@ class TaskScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseAnalytics.instance.logScreenView(
+      screenClass: "TaskScreen",
+      screenName: "Task edit screen",
+    );
     return ChangeNotifierProvider(
       create: (BuildContext context) => task == null
           ? TaskNotifier(task: Task(text: ''), isNewTask: true)

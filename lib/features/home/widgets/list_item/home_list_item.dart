@@ -1,5 +1,6 @@
 import 'package:daily/features/home/provider_notifiers/task_list_notifier.dart';
 import 'package:daily/utils/extensions/date_formatter.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +20,12 @@ class HomeListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final notifier = context.watch<TaskListNotifier>();
+    final notifier = context.read<TaskListNotifier>();
+
+    Future<void> completeTask() async {
+      await notifier.updateTask(task..complete());
+      FirebaseAnalytics.instance.logEvent(name: "complete_task");
+    }
 
     final completableTextStyle = task.done
         ? TextStyle(
@@ -27,10 +33,6 @@ class HomeListItem extends StatelessWidget {
             color: Theme.of(context).hintColor,
           )
         : null;
-
-    void completeTask() async => await notifier.updateTask(task..complete());
-
-    void deleteTask() async => await notifier.deleteTask(task.id);
 
     ///checkBox
     Widget checkBox = CheckBoxApp(
@@ -71,9 +73,7 @@ class HomeListItem extends StatelessWidget {
         : null;
 
     return DismissibleWrapper(
-      id: task.id,
-      startToEnd: completeTask,
-      endToStart: deleteTask,
+      task: task,
       child: ListTile(
         leading: checkBoxWithAdditionalIcon,
         title: title,

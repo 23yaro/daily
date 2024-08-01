@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:daily/di/di_container.dart';
 import 'package:daily/domain/model/task_model.dart';
-import 'package:daily/features/Home/widgets/list_item/home_list_item.dart';
+import 'package:daily/features/home/widgets/list_item/home_list_item.dart';
 import 'package:daily/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';

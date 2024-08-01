@@ -1,4 +1,5 @@
-import 'package:daily/features/Home/home_screen.dart';
+import 'package:daily/features/home/home_screen.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,11 @@ class TaskAppBar extends StatelessWidget {
       taskNotifier.isNewTask
           ? await listNotifier.addTask(taskNotifier.task)
           : await listNotifier.updateTask(taskNotifier.task);
+
+      taskNotifier.isNewTask
+          ? FirebaseAnalytics.instance.logEvent(name: "add_task")
+          : FirebaseAnalytics.instance.logEvent(name: "update_task");
+
       close();
     }
 

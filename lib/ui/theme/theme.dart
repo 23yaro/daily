@@ -122,6 +122,6 @@ abstract class ThemeApp {
     dividerColor: ColorsDark.separator,
     fontFamily: "Roboto",
     progressIndicatorTheme:
-    const ProgressIndicatorThemeData(color: ColorsDark.blue),
+        const ProgressIndicatorThemeData(color: ColorsDark.blue),
   );
 }

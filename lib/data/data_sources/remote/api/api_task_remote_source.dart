@@ -18,8 +18,8 @@ class TaskApiRemoteSource implements TaskRemoteSource {
   final AppRevision _appRevision;
 
   @override
-  Future<TaskDTO?> addTask(TaskDTO task) async {
-    TaskDTO? taskDTO;
+  Future<TaskDTO> addTask(TaskDTO task) async {
+    TaskDTO taskDTO;
     try {
       TaskResponse response = await _apiService.createTask(task.toApiJson());
       await _appRevision.set(response.revision);
@@ -30,13 +30,14 @@ class TaskApiRemoteSource implements TaskRemoteSource {
         error: error,
         stackTrace: stackTrace,
       );
+      rethrow;
     }
     return taskDTO;
   }
 
   @override
-  Future<TaskDTO?> getTaskById(String id) async {
-    TaskDTO? taskDTO;
+  Future<TaskDTO> getTaskById(String id) async {
+    TaskDTO taskDTO;
     try {
       TaskResponse response = await _apiService.getById(id);
       taskDTO = TaskDTO.fromJson(response.element);
@@ -47,13 +48,14 @@ class TaskApiRemoteSource implements TaskRemoteSource {
         error: error,
         stackTrace: stackTrace,
       );
+      rethrow;
     }
     return taskDTO;
   }
 
   @override
-  Future<TaskDTO?> updateTask(TaskDTO task) async {
-    TaskDTO? taskDTO;
+  Future<TaskDTO> updateTask(TaskDTO task) async {
+    TaskDTO taskDTO;
     try {
       TaskResponse response = await _apiService.updateTask(
         task.id,
@@ -68,13 +70,14 @@ class TaskApiRemoteSource implements TaskRemoteSource {
         error: error,
         stackTrace: stackTrace,
       );
+      rethrow;
     }
     return taskDTO;
   }
 
   @override
-  Future<TaskDTO?> deleteTaskById(String id) async {
-    TaskDTO? taskDTO;
+  Future<TaskDTO> deleteTaskById(String id) async {
+    TaskDTO taskDTO;
     try {
       TaskResponse response = await _apiService.deleteTask(id);
       await _appRevision.set(response.revision);
@@ -85,13 +88,14 @@ class TaskApiRemoteSource implements TaskRemoteSource {
         error: error,
         stackTrace: stackTrace,
       );
+      rethrow;
     }
     return taskDTO;
   }
 
   @override
-  Future<List<TaskDTO>?> getTaskList() async {
-    List<TaskDTO>? taskDTOsList;
+  Future<List<TaskDTO>> getTaskList() async {
+    List<TaskDTO> taskDTOsList;
     try {
       TasksListResponse response = await _apiService.getAll();
       logger.d('current revision ${response.revision}');
@@ -102,6 +106,9 @@ class TaskApiRemoteSource implements TaskRemoteSource {
               (m) => TaskDTO.fromJson(m),
             )
             .toList();
+      } else {
+        throw Exception(
+            'TaskApiRemoteSource exception: current revision > remote revision');
       }
     } catch (error, stackTrace) {
       logger.e(
@@ -109,13 +116,14 @@ class TaskApiRemoteSource implements TaskRemoteSource {
         error: error,
         stackTrace: stackTrace,
       );
+      rethrow;
     }
     return taskDTOsList;
   }
 
   @override
-  Future<List<TaskDTO>?> updateTaskList(List<TaskDTO> list) async {
-    List<TaskDTO>? taskDTOs;
+  Future<List<TaskDTO>> updateTaskList(List<TaskDTO> list) async {
+    List<TaskDTO> taskDTOs;
     try {
       TasksListResponse response = await _apiService.updateAll(
         {
@@ -136,6 +144,7 @@ class TaskApiRemoteSource implements TaskRemoteSource {
         error: error,
         stackTrace: stackTrace,
       );
+      rethrow;
     }
     return taskDTOs;
   }

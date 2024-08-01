@@ -1,6 +1,10 @@
+import 'dart:ui';
+
 import 'package:daily/data/data_sources/local/task_data_base.dart';
 import 'package:daily/data/data_sources/local/task_local_source.dart';
 import 'package:daily/data/data_sources/remote/task_remote_source.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,6 +17,7 @@ import '../data/data_sources/remote/api/api_task_remote_source.dart';
 import '../data/data_sources/remote/api/service/api_service.dart';
 import '../domain/repository/task_repository.dart';
 import '../domain/task_usecase/task_usecase.dart';
+import '../utils/logger/logger.dart';
 
 void setupGetIt() {
   GetIt.I.registerSingletonAsync<TaskDataBase>(
@@ -68,4 +73,22 @@ void setupGetIt() {
     ),
     dependsOn: [TaskRepository],
   );
+}
+
+void initCrashlytics() {
+  FlutterError.onError = (errorDetails) {
+    logger.d('Caught error in FlutterError.onError');
+    FirebaseCrashlytics.instance.recordFlutterError(errorDetails);
+  };
+
+  PlatformDispatcher.instance.onError = (error, stack) {
+    logger.d('Caught error in PlatformDispatcher.onError');
+    FirebaseCrashlytics.instance.recordError(
+      error,
+      stack,
+      fatal: true,
+    );
+    return true;
+  };
+  logger.d('Crashlytics initialized');
 }

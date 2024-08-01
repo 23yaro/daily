@@ -42,7 +42,7 @@ class SQFLDataBase implements TaskDataBase {
   }
 
   @override
-  Future<TaskDTO?> getTask(String id) async {
+  Future<TaskDTO> getTask(String id) async {
     try {
       List<Map> result = await _db.query(
         tableName,
@@ -56,7 +56,7 @@ class SQFLDataBase implements TaskDataBase {
         error: error,
         stackTrace: stackTrace,
       );
-      return null;
+      rethrow;
     }
   }
 

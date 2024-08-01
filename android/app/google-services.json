@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "985042031113",
+    "project_id": "daily-fd234",
+    "storage_bucket": "daily-fd234.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:985042031113:android:fde6c7871fc049034e9ed8",
+        "android_client_info": {
+          "package_name": "com.example.daily"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHARb7TPC24FFz4uViDK7vYy27Otqqbp4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

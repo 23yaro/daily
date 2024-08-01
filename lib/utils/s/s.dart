@@ -22,6 +22,6 @@ abstract class S {
   ];
 }
 
-extension SExtension on BuildContext{
+extension SExtension on BuildContext {
   AppLocalizations strings() => AppLocalizations.of(this);
 }

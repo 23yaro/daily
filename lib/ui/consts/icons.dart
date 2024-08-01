@@ -37,7 +37,7 @@ abstract class IconsApp {
   );
   static const deleteDisabled = Icon(
     Icons.delete,
-    color: ColorsApp.labelDisable,
+    color: ColorsApp.gray,
   );
   static const info = Icon(
     Icons.info_outline,
